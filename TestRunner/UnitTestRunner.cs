@@ -89,12 +89,12 @@ namespace Unknown6656.Testing
 
             values[ndx] = (elem.Item1 + rem, elem.Item2);
 
-            Print($"{new string(' ', padding)}[", ConsoleColor.White);
+            Print($"{new string(' ', padding)}|", ConsoleColor.White);
 
             foreach ((double, ConsoleColor) v in values)
                 Print(new string('▄', (int)v.Item1), v.Item2);
 
-            PrintLine($"] {description ?? ""}", ConsoleColor.White);
+            PrintLine($"| {description ?? ""}", ConsoleColor.White);
         }
 
         public static int RunTests(IEnumerable<Assembly> assemblies)
@@ -120,7 +120,7 @@ namespace Unknown6656.Testing
                             orderby type.GetCustomAttributes<PriorityAttribute>(true).FirstOrDefault()?.Priority ?? 0 descending
                             select type).ToArray();
 
-            PrintHeader("UNIT TEST", WIDTH);
+            PrintHeader("UNIT TESTS", WIDTH);
             WriteLine($@"
 Testing {types.Length} type(s):
 {string.Concat(types.Select(t => $"    [{new FileInfo(t.Assembly.Location).Name}] {t.FullName}\n"))}");
