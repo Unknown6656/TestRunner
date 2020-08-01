@@ -9,16 +9,16 @@
         <Product>Unknown6656.TestRunner</Product>
         <Description>A .NET unit test runner for the console/terminal.</Description>
         <Copyright>Copyright © Unknown6656, 2016-2020</Copyright>
-        <PackageProjectUrl>https://github.com/Unknown6656/TestRunner</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/Unknown6656/TestRunner</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/Unknown6656/Unknown6656.TestRunner</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Unknown6656/Unknown6656.TestRunner</RepositoryUrl>
         <RepositoryType>Git</RepositoryType>
         <PackageTags>unknown6656;unit;test;runner;unittest;mstest;ms</PackageTags>
         <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
         <PackageLicenseExpression></PackageLicenseExpression>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-        <AssemblyVersion>1.0.2.0</AssemblyVersion>
-        <FileVersion>1.0.2.0</FileVersion>
-        <Version>1.0.2</Version>
+        <AssemblyVersion>1.0.3.0</AssemblyVersion>
+        <FileVersion>1.0.3.0</FileVersion>
+        <Version>1.0.3</Version>
         <PackageIcon>unknown6656-logo-1024.png</PackageIcon>
     </PropertyGroup>
     <ItemGroup>

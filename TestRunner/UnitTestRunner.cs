@@ -138,7 +138,7 @@ Testing {types.Length} type(s):
                 MethodInfo? cleanup = t.GetMethod(nameof(Test_Cleanup));
                 int tpassed = 0, tfailed = 0, tskipped = 0, pleft, ptop, rptop;
 
-                WriteLine($"Testing class '{t.FullName}'");
+                WriteLine($"    Testing class '{t.FullName}'");
 
                 sinit?.Invoke(container, Array.Empty<object>());
 
@@ -175,7 +175,7 @@ Testing {types.Length} type(s):
 
                 foreach ((MethodInfo nfo, object[] args) in get_methods())
                 {
-                    Write("\t[");
+                    Write("        [");
                     ptop = CursorTop;
                     pleft = CursorLeft;
                     Write($"    ] Testing '{nfo.Name}({string.Join(", ", nfo.GetParameters().Select(p => p.ParameterType.FullName))})' with ({string.Join(", ", args)})");
@@ -246,7 +246,7 @@ Testing {types.Length} type(s):
                         {
                             ex = ex.InnerException;
 
-                            WriteLine($"\t\t  [{ex.GetType()}] {ex.Message}\n{string.Join("\n", ex.StackTrace?.Split('\n').Select(x => $"\t\t{x}") ?? Array.Empty<string>())}");
+                            WriteLine($"                  [{ex.GetType()}] {ex.Message}\n{string.Join("\n", ex.StackTrace?.Split('\n').Select(x => $"                {x}") ?? Array.Empty<string>())}");
                         }
 
                         ForegroundColor = ConsoleColor.White;
@@ -378,7 +378,35 @@ Testing {types.Length} type(s):
         public object[] Arguments { get; }
 
 
-        public TestWithAttribute(params object[] args) => Arguments = args;
+        public TestWithAttribute(params object[] args) => Arguments = args.Select(t => (object)t).ToArray();
+
+        public TestWithAttribute(params bool[] args) => Arguments = args.Select(t => (object)t).ToArray();
+
+        public TestWithAttribute(params byte[] args) => Arguments = args.Select(t => (object)t).ToArray();
+
+        public TestWithAttribute(params sbyte[] args) => Arguments = args.Select(t => (object)t).ToArray();
+
+        public TestWithAttribute(params char[] args) => Arguments = args.Select(t => (object)t).ToArray();
+
+        public TestWithAttribute(params short[] args) => Arguments = args.Select(t => (object)t).ToArray();
+
+        public TestWithAttribute(params ushort[] args) => Arguments = args.Select(t => (object)t).ToArray();
+
+        public TestWithAttribute(params int[] args) => Arguments = args.Select(t => (object)t).ToArray();
+
+        public TestWithAttribute(params uint[] args) => Arguments = args.Select(t => (object)t).ToArray();
+
+        public TestWithAttribute(params long[] args) => Arguments = args.Select(t => (object)t).ToArray();
+
+        public TestWithAttribute(params ulong[] args) => Arguments = args.Select(t => (object)t).ToArray();
+
+        public TestWithAttribute(params float[] args) => Arguments = args.Select(t => (object)t).ToArray();
+
+        public TestWithAttribute(params double[] args) => Arguments = args.Select(t => (object)t).ToArray();
+
+        public TestWithAttribute(params Type[] args) => Arguments = args;
+
+        public TestWithAttribute(params Enum[] args) => Arguments = args;
     }
 
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
