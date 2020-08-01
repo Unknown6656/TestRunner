@@ -71,7 +71,7 @@ namespace Unknown6656.Testing
 
         private static void PrintColorDescription(ConsoleColor col, string description)
         {
-            Print("       ▄▄▄ ", col);
+            Print("       ### ", col);
             PrintLine(description, ConsoleColor.White);
         }
 
@@ -89,12 +89,12 @@ namespace Unknown6656.Testing
 
             values[ndx] = (elem.Item1 + rem, elem.Item2);
 
-            Print($"{new string(' ', padding)}|", ConsoleColor.White);
+            Print($"{new string(' ', padding)}[", ConsoleColor.White);
 
             foreach ((double, ConsoleColor) v in values)
-                Print(new string('▄', (int)v.Item1), v.Item2);
+                Print(new string('#', (int)v.Item1), v.Item2);
 
-            PrintLine($"| {description ?? ""}", ConsoleColor.White);
+            PrintLine($"] {description ?? ""}", ConsoleColor.White);
         }
 
         public static int RunTests(IEnumerable<Assembly> assemblies)
