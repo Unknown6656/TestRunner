@@ -64,7 +64,7 @@ namespace Unknown6656.Testing
         private static void PrintHeader(string text, int width)
         {
             int line_width = width - text.Length - 2;
-            string line = new string('=', line_width / 2);
+            string line = new('=', line_width / 2);
 
             WriteLine($"{line} {text} {line}{(line_width % 2 == 0 ? "" : "=")}");
         }
@@ -267,23 +267,21 @@ Testing {types.Length} type(s):
 
             int total = passed + failed + skipped;
             double time = partial_results.Select(r => r.TimeCtor + r.TimeInit + r.TimeMethod).Sum();
-            double pr = passed / (double)total;
-            double sr = skipped / (double)total;
+            double pr = total == 0 ? 0 : passed / (double)total;
+            double sr = total == 0 ? 0 : skipped / (double)total;
             double tr;
             const int i_wdh = WIDTH - 35;
 
             WriteLine();
             PrintHeader("TEST RESULTS", WIDTH);
 
-            PrintGraph(0, WIDTH, "", (pr, ConsoleColor.Green),
-                                   (sr, ConsoleColor.Yellow),
-                                   (1 - pr - sr, ConsoleColor.Red));
+            PrintGraph(0, WIDTH, "", (pr, ConsoleColor.Green), (sr, ConsoleColor.Yellow), (total == 0 ? 0 : 1 - pr - sr, ConsoleColor.Red));
             Print($@"
     MODULES: {partial_results.Count,3}
     TOTAL:   {passed + failed + skipped,3}
     PASSED:  {passed,3} ({pr * 100,7:F3} %)
     SKIPPED: {skipped,3} ({sr * 100,7:F3} %)
-    FAILED:  {failed,3} ({(1 - pr - sr) * 100,7:F3} %)
+    FAILED:  {failed,3} ({(total == 0 ? 0 : 1 - pr - sr) * 100,7:F3} %)
     TIME:    {time * 1000d / Stopwatch.Frequency,9:F3} ms
     DETAILS:", ConsoleColor.White);
 
@@ -292,19 +290,19 @@ Testing {types.Length} type(s):
                 double mtime = res.TimeCtor + res.TimeInit + res.TimeMethod;
                 double tot = res.Passed + res.Failed + res.Skipped;
 
-                pr = res.Passed / tot;
-                sr = res.Failed / tot;
-                tr = mtime / time;
+                pr = tot == 0 ? 0 : res.Passed / tot;
+                sr = tot == 0 ? 0 : res.Failed / tot;
+                tr = time == 0 ? 0 : mtime / time;
 
-                double tdt_ct = res.TimeCtor / mtime;
-                double tdt_in = res.TimeInit / mtime;
-                double tdt_tt = res.TimeMethod / mtime;
+                double tdt_ct = mtime < double.Epsilon ? 0 : res.TimeCtor / mtime;
+                double tdt_in = mtime < double.Epsilon ? 0 : res.TimeInit / mtime;
+                double tdt_tt = mtime < double.Epsilon ? 0 : res.TimeMethod / mtime;
 
                 WriteLine($@"
         MODULE:  {res.Name}
         PASSED:  {res.Passed,3} ({pr * 100,7:F3} %)
         SKIPPED: {res.Failed,3} ({sr * 100,7:F3} %)
-        FAILED:  {res.Skipped,3} ({(1 - pr - sr) * 100,7:F3} %)
+        FAILED:  {res.Skipped,3} ({(tot == 0 ? 0 : 1 - pr - sr) * 100,7:F3} %)
         TIME:    {mtime * 1000d / Stopwatch.Frequency,9:F3} ms ({tr * 100d,7:F3} %)
             CONSTRUCTORS AND DESTRUCTORS: {res.TimeCtor * 1000d / Stopwatch.Frequency,9:F3} ms ({tdt_ct * 100d,7:F3} %)
             INITIALIZATION AND CLEANUP:   {res.TimeInit * 1000d / Stopwatch.Frequency,9:F3} ms ({tdt_in * 100d,7:F3} %)
